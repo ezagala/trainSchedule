@@ -41,13 +41,28 @@ var config = {
       console.log(snapshot.val()); 
 
       var trainName = snapshot.val().trainName; 
-      var destination = snapshot.val().destination;
-      var firstTrainTime = snapshot.val().firstTrain; 
-      var freq = snapshot.val().freq;
 
-    //   Calculate mintues away
-    //   var minutesAway = moment().diff(firstTrainTime); 
-    //   console.log(firstTrainTime); 
+      var destination = snapshot.val().destination;
+
+      var firstTrainTime = snapshot.val().firstTrain; 
+      var firstTimeCon = moment(firstTrainTime, "HH:mm").subtract(1, "years");
+      console.log(firstTimeCon); 
+
+      var frequency = snapshot.val().freq;
+
+      var currentTime = moment(); 
+
+      var timeDiff = moment().diff(moment(firstTimeCon), "mintues"); 
+      console.log(timeDiff); 
+
+      var timeRem = timeDiff % frequency; 
+      console.log(timeRem); 
+
+      var minLeft = frequency - timeRem; 
+
+      var nextTrain = moment().add(minLeft, "mintes"); 
+      var nextTrainFormatted = moment(nextTrain).format("hh:mm") 
+      console.log(moment(nextTrain).format("hh:mm")); 
     
     var tableRow = $("<tr>"); 
 
@@ -57,14 +72,14 @@ var config = {
     var destCell = $("<td>" + destination + "</td>");
     $(tableRow).append(destCell);
 
-    var freqCell = $("<td>" + freq + "</td>");
+    var freqCell = $("<td>" + frequency + "</td>");
     $(tableRow).append(freqCell);
 
-    var firstTrainCell = $("<td>" + firstTrainTime + "</td>");
-    $(tableRow).append(firstTrainCell);
+    var nextTrainCell = $("<td>" + nextTrainFormatted + "</td>");
+    $(tableRow).append(nextTrainCell);
 
-    // var minAwayCell = $("<td>" + minutesAway + "</td>");
-    // $(tableRow).append(minAwayCell);
+    var minAwayCell = $("<td>" + minLeft + "</td>");
+    $(tableRow).append(minAwayCell);
 
     $("tbody").append(tableRow)
       
