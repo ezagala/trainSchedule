@@ -60,7 +60,7 @@ var config = {
 
       var minLeft = frequency - timeRem; 
 
-      var nextTrain = moment().add(minLeft, "mintes"); 
+      var nextTrain = moment().add(minLeft, "minutes"); 
       var nextTrainFormatted = moment(nextTrain).format("hh:mm") 
       console.log(moment(nextTrain).format("hh:mm")); 
     
